@@ -13,3 +13,7 @@ To create custom user just edit the file `dllmain.cpp` with the desired username
 
 * Standalone: `rundll32.exe .\adduser.dll,backDoor`
 * Chain: use the DLL to be inject o called from another script/tool.
+
+## Analysis
+
+Static analysis using `strings` did not find hardcoded strings.
